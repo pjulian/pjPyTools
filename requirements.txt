@@ -1,0 +1,1 @@
+pjpylib@git+ssh://git@github.com/pjulian/pjPyLib@2.0.14#egg=pjpylib

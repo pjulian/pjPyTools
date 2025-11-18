@@ -1,0 +1,10 @@
+# coverage-badge
+flake8
+flake8-docstrings
+pylint
+pytest
+# pytest-bdd
+pytest-cov
+# pytest-mock
+pytest-xdist
+# tox
