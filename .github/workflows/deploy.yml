@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_PJPYLIB }}
+          token: ${{ secrets.PAT_PJPYTOOLS }}
 
       - name: Store the latest_tag in steps.vars.outputs
         id: vars
