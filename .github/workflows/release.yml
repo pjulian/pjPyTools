@@ -1,0 +1,40 @@
+# Ref. https://github.com/DataLabTechTV/datalab/blob/main/.github/workflows/release.yml
+
+name: Release
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.pull_request.merged }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_PJPYTOOLS }}
+
+      - name: Set up uv and python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: 3.13
+
+      - name: Run semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.PAT_PJPYTOOLS }}
+        run: | #shell
+          sr() {
+            uvx --from="python-semantic-release@10.4.1" semantic-release "$@"
+          }
+
+          sr version
+          sr publish

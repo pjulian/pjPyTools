@@ -1,0 +1,51 @@
+# Ref. https://github.com/DataLabTechTV/datalab/blob/main/pyproject.toml
+
+[project]
+name = "pjPyTools"
+version = "0.0.0"
+description = "Python-driven Automation and CLI Tools."
+readme = "README.md"
+requires-python = ">=3.9"
+
+[dependency-groups]
+dev = [
+  "python-semantic-release>=10.4.1",
+]
+
+[tool.semantic_release]
+commit_parser = "conventional"
+version_toml = ["pyproject.toml:project.version"]
+allow_zero_version = true
+tag_format = "{version}"
+
+[tool.semantic_release.commit_parser_options]
+# Bug Report -> https://github.com/python-semantic-release/python-semantic-release/issues/1293
+default_level_bump = "patch"
+allowed_tags = [
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "feat",
+    "fix",
+    "perf",
+    "style",
+    "refactor",
+    "test"
+]
+minor_tags = [
+    "feat",
+    "refactor"
+]
+patch_tags = [
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "fix",
+    "perf",
+    "style"
+]
+
+[tool.semantic_release.changelog.default_templates]
+changelog_file = "CHANGELOG.md"
