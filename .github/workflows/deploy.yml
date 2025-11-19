@@ -70,6 +70,12 @@ jobs:
             pjpytools-stg:${{ steps.vars.outputs.latest_tag }}
           # Add other options like build-args, target, etc. as needed
 
-      - name: Docker images check
-        run:
-          docker image ls
+      - name: Get docker images list
+        id: dockervars
+        run: |
+          COMMAND_RESULT=$(docker image ls)
+          echo "docker_image_list=$COMMAND_RESULT" >> $GITHUB_OUTPUT
+
+      - name: Display results of getting the docker images list
+        run: |
+          echo "${{ steps.dockervars.outputs.docker_image_list }}"
