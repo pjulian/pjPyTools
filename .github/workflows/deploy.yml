@@ -70,6 +70,6 @@ jobs:
             pjpytools-stg:${{ steps.vars.outputs.latest_tag }}
           # Add other options like build-args, target, etc. as needed
 
-      # - name: Docker images check
-      #   run:
-      #     docker image ls
+      - name: Docker images check
+        run:
+          docker image ls
