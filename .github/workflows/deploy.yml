@@ -74,7 +74,10 @@ jobs:
         id: dockervars
         run: |
           COMMAND_RESULT=$(docker image ls)
-          echo "docker_image_list=$COMMAND_RESULT" >> $GITHUB_OUTPUT
+          # echo "docker_image_list=$COMMAND_RESULT" >> $GITHUB_OUTPUT
+          echo "docker_image_list<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMAND_RESULT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Display results of getting the docker images list
         run: |
