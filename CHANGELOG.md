@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.0.3 (2025-11-19)
+
+### Bug Fixes
+
+- Update requirements.txt
+  ([`355dbe4`](https://github.com/pjulian/pjPyTools/commit/355dbe4bc2c549721b84d514d66f2794c48715f7))
+
+
 ## v0.0.2 (2025-11-18)
 
 ### Bug Fixes
