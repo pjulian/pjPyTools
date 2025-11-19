@@ -25,8 +25,7 @@ RUN python -m pip install --upgrade pip
 
 COPY . .
 
-RUN --mount=type=ssh \
-    pip install --no-cache-dir -r requirements.txt
+RUN --mount=type=ssh,id=default pip install --no-cache-dir -r requirements.txt
 
 # ADD support user.
 RUN adduser --disabled-password support && \
