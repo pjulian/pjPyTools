@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.0.4 (2025-11-19)
+
+### Bug Fixes
+
+- Set ssh-private-key in deploy.yml.
+  ([`3cbecf3`](https://github.com/pjulian/pjPyTools/commit/3cbecf357a859f7ba23f14e08b9cfd39e24f9649))
+
+
 ## v0.0.3 (2025-11-19)
 
 ### Bug Fixes
