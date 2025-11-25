@@ -43,7 +43,7 @@ jobs:
         run: |
           echo $RELEASE_VERSION
 
-      -name: Set environment abbreviation
+      - name: Set environment abbreviation
         id: setenv
         run: |
           ENV_ABBR=$(build_env='stg'; if [[ ${{ inputs.environment}} == "production" ]]; then build_env='prd'; fi; echo $build_env)
