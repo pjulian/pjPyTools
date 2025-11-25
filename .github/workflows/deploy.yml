@@ -94,7 +94,7 @@ jobs:
       - name: Get docker images list
         id: dockervars
         run: |
-          COMMAND_RESULT=$(docker image ls | grep pjpytools-)
+          COMMAND_RESULT=$(docker image ls | grep pjpytools)
           # echo "docker_image_list=$COMMAND_RESULT" >> $GITHUB_OUTPUT
           echo "docker_image_list<<EOF" >> $GITHUB_OUTPUT
           echo "$COMMAND_RESULT" >> $GITHUB_OUTPUT
