@@ -37,11 +37,23 @@ jobs:
           LATEST_TAG=$(git tag | sort --version-sort | tail -n1)
           echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
-      - name: Check output
+      - name: Check release version output
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.latest_tag }}
         run: |
           echo $RELEASE_VERSION
+
+      -name: Set environment abbreviation
+        id: setenv
+        run: |
+          ENV_ABBR=$(build_env='stg'; if [[ ${{ inputs.environment}} == "production" ]]; then build_env='prd'; fi; echo $build_env)
+          echo "build_env=$ENV_ABBR" >> $GITHUB_OUTPUT
+
+      - name: Check environment abbreviation output
+        env:
+          BUILD_ENV: ${{ steps.setenv.outputs.build_env }}
+        run: |
+          echo $BUILD_ENV
 
       - name: Prepare Key
         uses: webfactory/ssh-agent@v0.9.0
@@ -54,6 +66,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          buildenv: ${{ inputs.environment }}
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
           # The build context (current directory of the repository).
@@ -66,14 +79,14 @@ jobs:
           load: true
           # Define image tags (e.g., your-username/my-image:latest)
           tags: |
-            pjpytools-stg:latest
-            pjpytools-stg:${{ steps.vars.outputs.latest_tag }}
+            pjpytools-${{ steps.setenv.outputs.build_env }}:latest
+            pjpytools-${{ steps.setenv.outputs.build_env }}:${{ steps.vars.outputs.latest_tag }}
           # Add other options like build-args, target, etc. as needed
 
       - name: Get docker images list
         id: dockervars
         run: |
-          COMMAND_RESULT=$(sudo docker image ls)
+          COMMAND_RESULT=$(docker image ls | grep pjpytools-)
           # echo "docker_image_list=$COMMAND_RESULT" >> $GITHUB_OUTPUT
           echo "docker_image_list<<EOF" >> $GITHUB_OUTPUT
           echo "$COMMAND_RESULT" >> $GITHUB_OUTPUT
