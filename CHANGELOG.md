@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.1.0 (2025-11-25)
+
+### Features
+
+- Update release.yml - Auto deploy staging after successful PR merge & github release.
+  ([`d84dd25`](https://github.com/pjulian/pjPyTools/commit/d84dd25755652249521cb461ccde84dba6d3b499))
+
+
 ## v0.0.4 (2025-11-19)
 
 ### Bug Fixes
