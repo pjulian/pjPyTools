@@ -18,6 +18,7 @@ on:
         default: 'staging'
         type: choice
         options:
+        - bleeding
         - staging
         - production
 
@@ -46,7 +47,14 @@ jobs:
       - name: Set environment abbreviation
         id: setenv
         run: |
-          ENV_ABBR=$(build_env='stg'; if [[ ${{ inputs.environment}} == "production" ]]; then build_env='prd'; fi; echo $build_env)
+          ENV_ABBR=$(
+            build_env='';
+            if [[ ${{ inputs.environment}} == "staging" ]];
+              then build_env='-stg';
+            elif [[ ${{ inputs.environment}} == "bleeding" ]];
+              then build_env='-bld';
+            fi; echo $build_env
+          )
           echo "build_env=$ENV_ABBR" >> $GITHUB_OUTPUT
 
       - name: Check environment abbreviation output
@@ -79,8 +87,8 @@ jobs:
           load: true
           # Define image tags (e.g., your-username/my-image:latest)
           tags: |
-            pjpytools-${{ steps.setenv.outputs.build_env }}:latest
-            pjpytools-${{ steps.setenv.outputs.build_env }}:${{ steps.vars.outputs.latest_tag }}
+            pjpytools${{ steps.setenv.outputs.build_env }}:latest
+            pjpytools${{ steps.setenv.outputs.build_env }}:${{ steps.vars.outputs.latest_tag }}
           # Add other options like build-args, target, etc. as needed
 
       - name: Get docker images list
